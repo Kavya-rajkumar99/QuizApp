@@ -1,0 +1,66 @@
+*,*::before,*::after{
+    box-sizing: border-box;
+}
+
+:root{
+    --hue-neutral:200;
+    --hue-wrong : 0;
+    --hue-correct: 145;
+}
+body{
+    --hue:var(--hue-neutral);
+    padding:0;
+    margin:0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height:100vh;
+    width:100vw;
+    background-color: hsl(var(--hue),100%,30%);
+}
+.container{
+    background-color: white;
+    padding : 10px;
+    border-radius: 5px;
+    box-shadow: 0 0 10px 2px;
+    width : 400px;
+    max-width: 80%;
+}
+body.correct,button.correct{
+    background-color: hsl(var(--hue-correct),100%,30%);
+}
+body.wrong,button.wrong{
+    background-color: hsl(var(--hue-wrong),100%,30%);
+}
+.btn-grid{
+    display: grid;
+    grid-template-columns: repeat(2,auto);
+    gap:10px;
+    margin:10px 0;
+}
+.btn{
+    padding : 5px 10px;
+    background-color: hsl(var(--hue),100%,30%);
+    outline: none;
+    color:white;
+    border-color: hsl(var(--hue),100%,50%);
+}
+#question{
+    font-size: 1.5rem;
+}
+
+.start-btn,.next-btn{
+    font-size: 1rem;
+    font-weight: bold;
+    padding: 20px;
+}
+
+.controls{
+    display:flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.hide{
+    display:none
+}
