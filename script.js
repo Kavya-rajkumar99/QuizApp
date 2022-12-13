@@ -1,79 +1,74 @@
 const startButton = document.getElementById("start-btn");
 const nextButton = document.getElementById("next-btn");
 const questionContainer = document.querySelector("#question-container");
-const questionEl = document.getElementById("question")
-const answersList = document.getElementById("answersList")
+const questionEl = document.getElementById("question");
+const answersList = document.getElementById("answersList");
 
-let shuffledQuestions,currentQuestionIndex;
+let shuffledQuestions, currentQuestionIndex;
 const startGame = () => {
   startButton.classList.add("hide");
   questionContainer.classList.remove("hide");
-  shuffledQuestions = questions.sort(()=>Math.random()-0.5)
-  console.log(shuffledQuestions)
-  currentQuestionIndex=0;
-//   console.log(shuffledQuestions)
-  setNextQuestion(shuffledQuestions[currentQuestionIndex])
+  currentQuestionIndex = 0;
+  setNextQuestion();
 };
 
-const setNextQuestion = (question) => {
- clearStatusClass(document.body)
- resetState()
- questionEl.innerText=question.question
- question.answers.forEach(answer => {
-    const button = document.createElement('button')
-    button.innerText=answer.text
-    button.classList.add('btn')
-    button.addEventListener("click",selectAnswer)
-    if(answer.correct){
-        button.dataset.correct = answer.correct
+const setNextQuestion = () => {
+  resetState();
+  showQuestion(shuffledQuestions[currentQuestionIndex]);
+};
+const showQuestion = (question) => {
+  questionEl.innerText = question.question;
+  question.answers.forEach((answer) => {
+    const button = document.createElement("button");
+    button.innerText = answer.text;
+    button.classList.add("btn");
+    button.addEventListener("click", selectAnswer);
+    if (answer.correct) {
+      button.dataset.correct = answer.correct;
     }
-    answersList.appendChild(button)
- })
-
-}
+    answersList.appendChild(button);
+  });
+};
 
 const resetState = () => {
-    while(answersList.firstChild){
-        answersList.removeChild(answersList.firstChild)
-    }
-}
+  clearStatusClass(document.body);
+  nextButton.classList.add("hide");
+  while (answersList.firstChild) {
+    answersList.removeChild(answersList.firstChild);
+  }
+};
 
 const selectAnswer = (e) => {
-    const selectedButton = e.target
-    setStatusClass(document.body,selectedButton.dataset.correct)
-    Array.from(answersList.children).forEach(answerBtn => {
-        setStatusClass(answerBtn,answerBtn.dataset.correct)
-    })
-    if(currentQuestionIndex<shuffledQuestions.length-1){
-        nextButton.classList.remove('hide')
-    }
-    else{
-        startButton.classList.remove('hide')
-        startButton.innerText='Restart'
-    }
-    
-}
+  const selectedButton = e.target;
+  setStatusClass(document.body, selectedButton.dataset.correct);
+  Array.from(answersList.children).forEach((answerBtn) => {
+    setStatusClass(answerBtn, answerBtn.dataset.correct);
+  });
+  if (currentQuestionIndex < shuffledQuestions.length - 1) {
+    nextButton.classList.remove("hide");
+  } else {
+    startButton.innerText = "Restart";
+    startButton.classList.remove("hide");
+  }
+};
 
-const setStatusClass = (element,correct) => {
-  clearStatusClass(element)
-  if(correct){
-    element.classList.add('correct')
+const setStatusClass = (element, correct) => {
+  clearStatusClass(element);
+  if (correct) {
+    element.classList.add("correct");
+  } else {
+    element.classList.add("wrong");
   }
-  else{
-    element.classList.add('wrong')
-  }
-}
+};
 const clearStatusClass = (element) => {
-    element.classList.remove('correct')
-    element.classList.remove('wrong')
-}
+  element.classList.remove("correct");
+  element.classList.remove("wrong");
+};
 startButton.addEventListener("click", startGame);
-nextButton.addEventListener("click",() => {
-    nextButton.classList.add('hide')
-    currentQuestionIndex++
-    console.log(currentQuestionIndex)
-    setNextQuestion(shuffledQuestions[currentQuestionIndex])
-})
+nextButton.addEventListener("click", () => {
+  currentQuestionIndex++;
+  setNextQuestion();
+});
 
 const questions = [
   {

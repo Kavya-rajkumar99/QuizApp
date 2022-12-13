@@ -16,7 +16,7 @@ body{
     align-items: center;
     height:100vh;
     width:100vw;
-    background-color: hsl(var(--hue),100%,30%);
+    background-color: hsl(var(--hue),100%,20%);
 }
 .container{
     background-color: white;
@@ -26,33 +26,47 @@ body{
     width : 400px;
     max-width: 80%;
 }
-body.correct,button.correct{
-    background-color: hsl(var(--hue-correct),100%,30%);
+body.correct{
+    /* background-color: hsl(var(--hue-correct),100%,30%); */
+    --hue : var(--hue-correct);
 }
-body.wrong,button.wrong{
-    background-color: hsl(var(--hue-wrong),100%,30%);
+body.wrong,.btn.wrong{
+    --hue : var(--hue-wrong);
 }
 .btn-grid{
     display: grid;
     grid-template-columns: repeat(2,auto);
     gap:10px;
-    margin:10px 0;
+    margin:20px 0;
 }
 .btn{
+    --hue : var(--hue-neutral);
     padding : 5px 10px;
-    background-color: hsl(var(--hue),100%,30%);
+    background-color: hsl(var(--hue),100%,50%);
+    border-color: hsl(var(--hue),100%,30%);
+    border-radius: 5px;
     outline: none;
     color:white;
-    border-color: hsl(var(--hue),100%,50%);
+    
+}
+.btn.correct{
+    --hue : var(--hue-correct);
+    color : black;
+}
+.btn.wrong{
+    --hue : var(--hue-wrong)
+}
+.btn:hover{
+    border-color: black;
 }
 #question{
     font-size: 1.5rem;
 }
 
 .start-btn,.next-btn{
-    font-size: 1rem;
+    font-size: 1.5rem;
     font-weight: bold;
-    padding: 20px;
+    padding: 10px 20px;
 }
 
 .controls{
